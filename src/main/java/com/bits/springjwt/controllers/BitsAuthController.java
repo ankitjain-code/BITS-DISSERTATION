@@ -20,15 +20,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bits.springjwt.models.ERole;
-import com.bits.springjwt.models.Role;
-import com.bits.springjwt.models.User;
+import com.bits.springjwt.models.BitsEnumRole;
+import com.bits.springjwt.models.BitsRole;
+import com.bits.springjwt.models.BitsUser;
 import com.bits.springjwt.payload.request.BitsLoginRequest;
 import com.bits.springjwt.payload.request.BitsSignupRequest;
 import com.bits.springjwt.payload.response.BitsJwtResponse;
 import com.bits.springjwt.payload.response.BitsMessageResponse;
-import com.bits.springjwt.repository.RoleRepository;
-import com.bits.springjwt.repository.UserRepository;
+import com.bits.springjwt.repository.BitsRoleRepository;
+import com.bits.springjwt.repository.BitsUserRepository;
 import com.bits.springjwt.security.jwt.BitsJwtUtils;
 import com.bits.springjwt.security.services.BitsUserDetailsImpl;
 
@@ -40,10 +40,10 @@ public class BitsAuthController {
   AuthenticationManager authenticationManager;
 
   @Autowired
-  UserRepository userRepository;
+  BitsUserRepository userRepository;
 
   @Autowired
-  RoleRepository roleRepository;
+  BitsRoleRepository roleRepository;
 
   @Autowired
   PasswordEncoder encoder;
@@ -87,34 +87,34 @@ public class BitsAuthController {
     }
 
     // Create new user's account
-    User user = new User(signUpRequest.getUsername(), 
+    BitsUser user = new BitsUser(signUpRequest.getUsername(), 
                signUpRequest.getEmail(),
                encoder.encode(signUpRequest.getPassword()));
 
     Set<String> strRoles = signUpRequest.getRole();
-    Set<Role> roles = new HashSet<>();
+    Set<BitsRole> roles = new HashSet<>();
 
     if (strRoles == null) {
-      Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+      BitsRole userRole = roleRepository.findByName(BitsEnumRole.ROLE_USER)
           .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
       roles.add(userRole);
     } else {
       strRoles.forEach(role -> {
         switch (role) {
         case "admin":
-          Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
+          BitsRole adminRole = roleRepository.findByName(BitsEnumRole.ROLE_ADMIN)
               .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
           roles.add(adminRole);
 
           break;
         case "mod":
-          Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
+          BitsRole modRole = roleRepository.findByName(BitsEnumRole.ROLE_MODERATOR)
               .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
           roles.add(modRole);
 
           break;
         default:
-          Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+          BitsRole userRole = roleRepository.findByName(BitsEnumRole.ROLE_USER)
               .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
           roles.add(userRole);
         }

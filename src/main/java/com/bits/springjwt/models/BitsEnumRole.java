@@ -1,6 +1,6 @@
 package com.bits.springjwt.models;
 
-public enum ERole {
+public enum BitsEnumRole {
   ROLE_USER,
   ROLE_MODERATOR,
   ROLE_ADMIN

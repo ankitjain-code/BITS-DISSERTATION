@@ -5,11 +5,11 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.bits.springjwt.models.User;
+import com.bits.springjwt.models.BitsUser;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
-  Optional<User> findByUsername(String username);
+public interface BitsUserRepository extends JpaRepository<BitsUser, Long> {
+  Optional<BitsUser> findByUsername(String username);
 
   Boolean existsByUsername(String username);
 

@@ -4,20 +4,20 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "roles")
-public class Role {
+public class BitsRole {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
   @Enumerated(EnumType.STRING)
   @Column(length = 20)
-  private ERole name;
+  private BitsEnumRole name;
 
-  public Role() {
+  public BitsRole() {
 
   }
 
-  public Role(ERole name) {
+  public BitsRole(BitsEnumRole name) {
     this.name = name;
   }
 
@@ -29,11 +29,11 @@ public class Role {
     this.id = id;
   }
 
-  public ERole getName() {
+  public BitsEnumRole getName() {
     return name;
   }
 
-  public void setName(ERole name) {
+  public void setName(BitsEnumRole name) {
     this.name = name;
   }
 }

@@ -1,4 +1,4 @@
-package com.bits.interceptor;
+package com.bits.springjwt.interceptor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,6 +16,6 @@ public class WebAppConfigAdapter implements WebMvcConfigurer {
 		System.out.println("this method will get invoked by container while deployment");
 		System.out.println("value of interceptor is " + interceptor);
 		// adding custom interceptor
-		interceptorRegistry.addInterceptor(interceptor);
+		interceptorRegistry.addInterceptor(interceptor).addPathPatterns("/api/test/all");
 	}
 }
